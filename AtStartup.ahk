@@ -1,4 +1,4 @@
-﻿#Requires AutoHotkey v1.1.21+
+﻿#Requires AutoHotkey v1.1.35+
 ;==============================================================
 ; AtStartup — Manage program auto-start registration via Run keys and startup folders
 ;
