@@ -8,7 +8,7 @@
 ;==============================================================
 class VersionManager_AtStartup
 {
-    static _ := VersionManager_MonitorExGetUtils._init()
+    static _ := VersionManager_AtStartup._init()
     _init()    {
         global
         ATSTARTUP_VERSION := "2.0.0"
