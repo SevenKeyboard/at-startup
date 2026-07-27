@@ -11,7 +11,7 @@ class VersionManager_AtStartup
     static _ := this._init()
     static _init()    {
         global
-        ATSTARTUP_VERSION := "2.0.0"
+        ATSTARTUP_VERSION := "2.0.1"
     }
 }
 Class AtStartup
