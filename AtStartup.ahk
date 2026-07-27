@@ -11,7 +11,7 @@ class VersionManager_AtStartup
     static _ := VersionManager_AtStartup._init()
     _init()    {
         global
-        ATSTARTUP_VERSION := "2.0.0"
+        ATSTARTUP_VERSION := "2.0.1"
     }
 }
 Class AtStartup
@@ -27,23 +27,38 @@ Class AtStartup
             fullPath := fullPath !== "" ? fullPath : A_ScriptFullPath
             if (260 < strLen(fullPath))
                 return
-            regRead _, % this._keyName, % valueName
-            if (overwrite || errorLevel)
+            ok := true
+            try  {
+                regRead _, % this._keyName, % valueName
+            }  catch  {
+                ok := false
+            }
+            if (overwrite || !ok)
                 regWrite % "REG_SZ", % this._keyName, % valueName, % this._joinCmdLine(fullPath, commandLineArguments)        
         }
         unregister(valueName)    {
             if (valueName == "")
                 return
-            regRead _, % this._keyName, % valueName
-            if (!errorLevel)
+            ok := true
+            try  {
+                regRead _, % this._keyName, % valueName
+            }  catch  {
+                ok := false
+            }
+            if (ok)
                 regDelete % this._keyName, % valueName
         }
         isRegistered(valueName, fullPath := "", commandLineArguments := "")    {
             if (valueName == "")
                 return 0
             fullPath := fullPath !== "" ? fullPath : A_ScriptFullPath
-            regRead prevCmdLine, % this._keyName, % valueName
-            if (errorLevel)
+            ok := true
+            try  {
+                regRead prevCmdLine, % this._keyName, % valueName
+            }  catch  {
+                ok := false
+            }
+            if (!ok)
                 return false
             prevArgv    := this._commandLineToArgvW(prevCmdLine)
             newArgv     := this._commandLineToArgvW(this._joinCmdLine(fullPath, commandLineArguments))
